@@ -18,14 +18,13 @@ with open("recipes.txt", encoding="utf-8") as file:
 
 def get_shop_list_by_dishes(dishes, person_count):
     recipe= {}
-    for i in dishes:
-        for a,b in cook_book.items():
-            if i ==a:
-                for c in b:                     
-                    d= c['quantity']*person_count
-                    recipe[c['ingredient_name']]= {'measure': c['measure'], 'quantity': d}                                
-            else:
-                continue
+    for dish,ingredients in cook_book.items():
+        if dish in dishes:
+            for one_ingr in ingredients:                     
+                weight= one_ingr['quantity']*person_count
+                recipe[one_ingr['ingredient_name']]= {'measure': one_ingr['measure'], 'quantity': weight}                                
+        else:
+            continue
     pprint(recipe)
     return
 
@@ -49,7 +48,7 @@ def files():
             text_2.append(f'строка номер {count_2} файла номер 2')
 
         #сравниваю, тут я даже не представляю сравнение по другому и если файлов будет больше двух
-        a= count_1> count_2
+        a= count_1 > count_2
         if a == True:
             fw.write(f"1.txt\n{count_1}\n")
             for a in text_1:
@@ -67,7 +66,7 @@ def files():
 
 files()
 
-
+get_shop_list_by_dishes(['Омлет', 'Утка по-пекински'], 3)
 
 
 
